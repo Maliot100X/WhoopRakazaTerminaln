@@ -139,11 +139,12 @@ export function Orbit3D({ tokens, onSelect }: { tokens: OrbitToken[]; onSelect: 
     }
     const ro = new ResizeObserver(resize); ro.observe(el); resize()
 
-    const clock = new THREE.Clock()
+    const clock = new THREE.Timer()
     let raf = 0
     const tick = () => {
       raf = requestAnimationFrame(tick)
-      const t = reduce ? 0 : clock.getElapsedTime()
+      clock.update()
+      const t = reduce ? 0 : clock.getElapsed()
       core.rotation.y = 0; core.rotation.x = 0; coinPivot.rotation.y = t * 0.9; coinPivot.position.y = Math.sin(t * 1.2) * 0.12
       const pulse = 1 + Math.sin(t * 1.6) * 0.04
       ico.scale.setScalar(pulse); wire.rotation.y = -t * 0.4; wire.rotation.z = t * 0.2

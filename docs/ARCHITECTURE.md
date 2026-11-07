@@ -29,6 +29,11 @@ TanStack Start 1.169 + TanStack Router 1.170 (file routes), React 19, Vite 8, Ta
 | `src/components/Community.tsx` | Live community feed |
 | `src/components/Market.tsx` | DexScreener trending + SOL price, with the name filter |
 | `src/components/Reveal.tsx` | Scroll-in animation wrapper (IntersectionObserver) |
+| `src/components/Chatbot.tsx` | Floating helper. BM25 search over `src/brain/*` (+ the original terminal's docs and 68-route map), intents: open tab, run terminal command, live SOL price, latest launches. Cites its source. Not an LLM, see BRAIN-UPGRADE.md |
+| `src/components/LocalPreview.tsx` | The "localhost:3200" browser frame under the Terminal: Home, Explore, Launch (dry run), Agents, Leaderboard, Routes (all 68 real pages), Talk |
+| `src/brain/brain.md` | The helper's identity rules and knowledge (edit this to teach it). `original/` holds copies of the original repo's ENV, DEPLOY, AI-SETUP-GUIDE, LINKS, MARKET-MAP |
+| `src/data/routes.json` | The original terminal's 68 routes with blurbs |
+| `DESIGN.md` | This app's design system in the nine-section DESIGN.md format |
 | `public/brand/` | banner, profile, `rakaza.vrm` (VRoid AvatarSample_B, free for commercial use, no credit needed), `og-terminal.jpg` (share card) |
 | `public/media/`, `public/memes/` | promo video + poster, songs, meme images (copied from the original repo) |
 | `tools/` | headless-browser screenshot, terminal smoke test, share-card renderer |
@@ -38,7 +43,7 @@ TanStack Start 1.169 + TanStack Router 1.170 (file routes), React 19, Vite 8, Ta
 Mood: loud, playful, neo-brutalist. Fonts: Anybody (display), Geist (body), Geist Mono. Tokens in `src/styles.css`: paper `#120828`, card `#1c0f40`, ink `#f4efff`, muted `#b7aad6`, line `#4a3a86`, accent `#ffc933`, pink `#ff4da6`, mint `#3ff0c3`. Thick borders and hard offset shadows on cards. Motion: `rise` keyframe on tab change, `Reveal` on scroll, parallax banner, all disabled under `prefers-reduced-motion`.
 
 ## Tabs
-Universe, Rakaza 3D, Terminal, Video, Market, Launches, Agents, Community, Leaderboard, About. Tab state is React state; add a tab in three places in `Explorer.tsx`: the lazy import, the `tabs` array, the render switch.
+Universe, Rakaza 3D, Terminal (+ localhost preview), Video (tour, promo, scenes, songs, memes), Market, Launches, Agents, Community, Leaderboard, About. The helper chat floats over all of them. Tab state is React state; add a tab in three places in `Explorer.tsx`: the lazy import, the `tabs` array, the render switch.
 
 ## Hard limits
 - Read-only. It cannot launch, trade, sign or chat with the AI. Those need the full terminal (wallet signing, keys).

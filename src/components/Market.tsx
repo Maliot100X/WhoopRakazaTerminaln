@@ -42,7 +42,7 @@ export function Market() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-card border-2 border-ink bg-card p-6 shadow-[6px_6px_0_var(--color-mint)]">
         <div>
-          <p className="font-mono text-xs tracking-widest text-muted uppercase">Solana price</p>
+          <p className="text-sm text-muted">Solana price</p>
           <p className="mt-1 font-display text-5xl font-black tabular-nums">{sol?.priceUsd ? `$${Number(sol.priceUsd).toFixed(2)}` : '…'}</p>
         </div>
         {ch != null && (
@@ -63,10 +63,10 @@ export function Market() {
             <li key={p.baseToken.address}>
               <a href={p.url} target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-card border-2 border-line bg-card p-4 transition hover:-translate-y-0.5 hover:border-ink" style={{ animation: `rise .5s ${i * 40}ms both` }}>
                 <span className="w-6 font-mono text-muted">{i + 1}</span>
-                {p.info?.imageUrl ? <img src={p.info.imageUrl} alt="" loading="lazy" className="size-11 rounded-full bg-line object-cover" /> : <span className="grid size-11 place-items-center rounded-full bg-line font-bold">{p.baseToken.symbol.slice(0, 2)}</span>}
+                {p.info?.imageUrl ? <img src={p.info.imageUrl} alt="" className="size-11 rounded-full bg-line object-cover" /> : <span className="grid size-11 place-items-center rounded-full bg-line font-bold">{p.baseToken.symbol.slice(0, 2)}</span>}
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-bold">{p.baseToken.name} <span className="font-mono text-sm text-muted">${p.baseToken.symbol}</span></p>
-                  <p className="text-sm text-muted">MC {usd(p.marketCap ?? p.fdv)} · vol {usd(p.volume?.h24)} · liq {usd(p.liquidity?.usd)}</p>
+                  <p className="text-sm text-muted">Market cap {usd(p.marketCap ?? p.fdv)}, volume {usd(p.volume?.h24)}, liquidity {usd(p.liquidity?.usd)}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-mono text-sm">{p.priceUsd ? `$${Number(p.priceUsd) < 0.01 ? Number(p.priceUsd).toExponential(2) : Number(p.priceUsd).toFixed(4)}` : ''}</p>

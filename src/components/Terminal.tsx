@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { LocalPreview } from './LocalPreview'
 
 const ORIGIN = 'https://rakaza-ai-terminal.vercel.app'
 const API = `${ORIGIN}/api/public`
@@ -50,7 +51,9 @@ export function Terminal() {
   const [busy, setBusy] = useState(false)
   const [accent, setAccent] = useState('#3ff0c3')
   const [cwd, setCwd] = useState('~')
-  const st = useRef({ cloned: false, installed: false, env: false, running: false, hist: [] as string[], hi: -1 })
+  const [running, setRunning] = useState(false)
+  const st = useRef({ cwd: '~', last: '', lastAt: 0, cloned: false, installed: false, env: false, running: false, hist: [] as string[], hi: -1 })
+  const setCwdBoth = (v: string) => { st.current.cwd = v; setCwd(v) }
   const box = useRef<HTMLDivElement>(null)
   const alive = useRef(true)
   useEffect(() => { alive.current = true; return () => { alive.current = false } }, [])
@@ -72,7 +75,7 @@ export function Terminal() {
     if (!cmd) return
     const s = st.current
     s.hist.push(cmd); s.hi = -1
-    out(`${cwd === '~' ? '~' : '~/' + cwd}$ ${cmd}`, 'cmd')
+    out(`${s.cwd === '~' ? '~' : '~/' + s.cwd}$ ${cmd}`, 'cmd')
     setBusy(true)
     try {
       const [a, b, ...rest] = cmd.split(/\s+/)
@@ -84,20 +87,20 @@ export function Terminal() {
       else if (cmd === 'neofetch') { ['   ____      _          ', '  |  _ \\ __ _| | ____ _ ', '  | |_) / _` | |/ / _` |', '  |  _ < (_| |   < (_| |', '  |_| \\_\\__,_|_|\\_\\__,_|'].forEach((l) => out(l, 'acc')); out('OS: Whop hosted, in your browser'); out('Chain: Solana (devnet first)'); out('Fee split: 70/30 sponsored, 100% self launch'); out('Brain: River, voice: Deepgram, avatar: VRM') }
       else if (cmd === 'matrix') { for (let i = 0; i < 6; i++) { out(Array.from({ length: 38 }, () => '01$SOLRKZ◆'[Math.floor(Math.random() * 10)]).join(' '), 'ok'); await sleep(120) } }
       else if (a === 'theme') { const c = THEMES[b]; if (c) { setAccent(c); out(`theme set to ${b}`, 'ok') } else out('usage: theme violet|mint|amber|pink', 'err') }
-      else if (a === 'cd') { if (b === 'RakazaAiTerminal' || b === 'RakazaAiTerminal/') { if (!s.cloned) out('cd: no such directory. Run git clone first.', 'err'); else setCwd('RakazaAiTerminal') } else if (b === '..' || b === '~') setCwd('~'); else out(`cd: ${b}: no such directory`, 'err') }
+      else if (a === 'cd') { if (b === 'RakazaAiTerminal' || b === 'RakazaAiTerminal/') { if (!s.cloned) out('cd: no such directory. Run git clone first.', 'err'); else setCwdBoth('RakazaAiTerminal') } else if (b === '..' || b === '~') setCwdBoth('~'); else out(`cd: ${b}: no such directory`, 'err') }
       else if (a === 'git' && b === 'clone') {
         const url = rest[0] ?? ''
         if (!/Maliot100X\/RakazaAiTerminal/i.test(url)) out(`try: git clone ${REPO}`, 'dim')
         else { for (const l of ['Cloning into \'RakazaAiTerminal\'...', 'remote: Enumerating objects: 1,842, done.', 'Receiving objects: 100% (1842/1842), 38.4 MiB | 21.0 MiB/s, done.', 'Resolving deltas: 100% (903/903), done.']) { out(l, 'dim'); await sleep(260) } s.cloned = true; out('Cloned. Next: cd RakazaAiTerminal', 'ok') }
       }
       else if (cmd === 'npm install' || cmd === 'npm i') {
-        if (cwd === '~' || !s.cloned) out('npm: no package.json here. cd RakazaAiTerminal first.', 'err')
+        if (s.cwd === '~' || !s.cloned) out('npm: no package.json here. cd RakazaAiTerminal first.', 'err')
         else { for (const d of DEPS) { out(`+ ${d}`, 'dim'); await sleep(110) } s.installed = true; out('added 1,204 packages in 38s', 'ok'); out('(simulated: nothing was installed on your device)', 'dim') }
       }
       else if (a === 'cp' && b === '.env.example') { if (!s.cloned) out('cp: cannot stat .env.example', 'err'); else { s.env = true; out('.env.local created. The repo has no secrets: pages work with zero keys, features that need a key say "not configured".', 'ok') } }
       else if (cmd === 'npm run dev') {
         if (!s.installed) out('Run npm install first.', 'err')
-        else { for (const l of ['> rakaza-tokenization@0.1.0 dev', '> next dev -p 3200', '', '▲ Next.js 16.4.3', '- Local: http://localhost:3200', '✓ Ready in 1.9s']) { out(l, l.startsWith('✓') ? 'ok' : 'dim'); await sleep(240) } s.running = true; out('Try: curl localhost:3200/api/health', 'acc') }
+        else { for (const l of ['> rakaza-tokenization@0.1.0 dev', '> next dev -p 3200', '', '▲ Next.js 16.4.3', '- Local: http://localhost:3200', '✓ Ready in 1.9s']) { out(l, l.startsWith('✓') ? 'ok' : 'dim'); await sleep(240) } s.running = true; setRunning(true); out('Try: curl localhost:3200/api/health. The project is open below.', 'acc') }
       }
       else if (a === 'curl') {
         const u = b ?? ''
@@ -133,15 +136,29 @@ export function Terminal() {
     setBusy(false)
   }
 
-  const chips = ['help', 'git clone ' + REPO, 'cd RakazaAiTerminal', 'npm install', 'cp .env.example .env.local', 'npm run dev', 'curl localhost:3200/api/health', 'rakaza tokens', 'rakaza price', 'launch --name "Moon Cat" --symbol MCAT', 'rakaza say', 'theme pink']
+  const runRef = useRef(run)
+  runRef.current = run
+  useEffect(() => {
+    const go = (c: string) => { const s = st.current; if (s.last === c && Date.now() - s.lastAt < 1500) return; s.last = c; s.lastAt = Date.now(); void runRef.current(c) }
+    const w = window as unknown as { __rkPending?: string }
+    if (w.__rkPending) { const c = w.__rkPending; w.__rkPending = undefined; setTimeout(() => go(c), 250) }
+    const h = (e: Event) => { w.__rkPending = undefined; go((e as CustomEvent<string>).detail) }
+    window.addEventListener('rk-run', h)
+    return () => window.removeEventListener('rk-run', h)
+  }, [])
+  async function autoSetup() {
+    const seq = ['git clone ' + REPO, 'cd RakazaAiTerminal', 'npm install', 'cp .env.example .env.local', 'npm run dev']
+    for (const c of seq) { if (!alive.current) return; await run(c) }
+  }
+
+  const chips = ['Run the whole setup for me', 'help', 'git clone ' + REPO, 'cd RakazaAiTerminal', 'npm install', 'cp .env.example .env.local', 'npm run dev', 'curl localhost:3200/api/health', 'rakaza tokens', 'rakaza price', 'launch --name "Moon Cat" --symbol MCAT', 'rakaza say', 'theme pink']
   const color = (c?: Line['c']) => c === 'dim' ? 'text-white/50' : c === 'ok' ? 'text-mint' : c === 'err' ? 'text-pink' : c === 'acc' ? 'text-accent' : c === 'pink' ? 'text-pink' : c === 'cmd' ? 'text-white' : 'text-white/85'
 
   return (
     <div>
-      <div className="overflow-hidden rounded-card border-2 border-line bg-[#0a0418] shadow-[0_20px_50px_rgba(0,0,0,.45)]" style={{ ['--acc' as string]: accent }}>
-        <div className="flex items-center gap-2 border-b border-line bg-card px-4 py-2.5">
-          <span className="size-3 rounded-full bg-pink" /><span className="size-3 rounded-full bg-accent" /><span className="size-3 rounded-full bg-mint" />
-          <span className="ml-3 font-mono text-xs text-muted">rakaza@demo: {cwd}</span>
+      <div className="overflow-hidden rounded-card border-2 border-line bg-night" style={{ ['--acc' as string]: accent }}>
+        <div className="flex items-center gap-2 bg-paper px-4 py-2.5">
+          <span className="text-xs text-muted">rakaza@demo: {cwd}</span>
           <span className="ml-auto font-mono text-[10px] text-muted">{st.current.running ? '● localhost:3200' : '○ not running'}</span>
         </div>
         <div ref={box} onClick={() => document.getElementById('rk-in')?.focus()} className="h-[52vh] min-h-[320px] overflow-auto p-4 font-mono text-[13px] leading-relaxed">
@@ -156,8 +173,9 @@ export function Terminal() {
       </div>
       <p className="mt-4 text-sm text-muted">Tap to run:</p>
       <div className="mt-2 flex flex-wrap gap-2">
-        {chips.map((c) => <button key={c} disabled={busy} onClick={() => run(c)} className="min-h-10 max-w-full truncate rounded-full border border-line bg-card px-4 font-mono text-xs hover:border-ink disabled:opacity-50">{c.length > 34 ? c.slice(0, 32) + '…' : c}</button>)}
+        {chips.map((c) => <button key={c} disabled={busy} onClick={() => (c.startsWith('Run the whole') ? autoSetup() : run(c))} className="min-h-10 max-w-full truncate rounded-full border border-line bg-card px-4 font-mono text-xs hover:border-ink disabled:opacity-50">{c.length > 34 ? c.slice(0, 32) + '…' : c}</button>)}
       </div>
+      <LocalPreview running={running} onStart={() => { if (!busy) void autoSetup() }} />
     </div>
   )
 }

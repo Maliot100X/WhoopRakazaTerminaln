@@ -6,6 +6,12 @@ const MEMES = [
   ['gm', 'GM, no seed phrases today'], ['never-share', 'Never share your seed phrase'], ['devnet-first', 'Devnet first, always'], ['read-the-chart', 'I read the chart so you stay calm'],
   ['dyor', 'DYOR, I will wait'], ['3am', 'Still launching at 3am'], ['keep-100', 'Self launch: you keep 100%'], ['seventy-thirty', 'Sponsored launch: 70% you, 30% me'],
 ]
+const SCENES = [
+  ['scene-universe', 'Rakaza floating among orbit rings of token coins around a gold rocket coin'],
+  ['scene-terminal', 'Rakaza typing at a glowing laptop next to a floating terminal window'],
+  ['scene-helper', 'Rakaza waving, surrounded by helper chat bubbles with small icons'],
+  ['scene-avatar-stage', 'Rakaza on a neon stage next to a holographic 3D avatar'],
+]
 const SONGS = [['rakaza-song-1.mp3', 'Rakaza Launch'], ['rakaza-song-2.mp3', 'Rakaza Launch v2']]
 
 function Song({ file, title }: { file: string; title: string }) {
@@ -32,12 +38,25 @@ export function Media() {
   return (
     <div className="space-y-14">
       <Reveal>
+        <h2 className="font-display text-3xl font-black">App tour</h2>
+        <p className="mt-1 text-muted">A real screen recording of this app: the 3D universe, Rakaza, the terminal and localhost, the market and the helper.</p>
+        <video controls playsInline preload="metadata" poster="/media/rakaza-tour-poster.jpg" className="mt-4 aspect-video w-full rounded-card border-2 border-ink bg-black shadow-[8px_8px_0_var(--color-mint)]">
+          <source src="/media/rakaza-tour.mp4" type="video/mp4" />
+        </video>
+      </Reveal>
+      <Reveal>
         <h2 className="font-display text-3xl font-black">Promo</h2>
         <p className="mt-1 text-muted">15 seconds on what Rakaza does.</p>
         <video controls playsInline preload="metadata" poster="/media/rakaza-promo-16x9-poster.jpg" className="mt-4 aspect-video w-full rounded-card border-2 border-ink bg-black shadow-[8px_8px_0_var(--color-pink)]">
           <source src="/media/rakaza-promo-16x9.mp4" type="video/mp4" />
         </video>
       </Reveal>
+      <section>
+        <Reveal><h2 className="font-display text-3xl font-black">Scenes</h2><p className="mt-1 text-muted">Same character and style in every scene, made from the repo’s image guide.</p></Reveal>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {SCENES.map(([f, alt], i) => <Reveal key={f} delay={(i % 2) * 90}><img src={`/img/${f}.jpg`} alt={alt} loading="lazy" className="aspect-video w-full rounded-card border-2 border-line object-cover" /></Reveal>)}
+        </div>
+      </section>
       <section>
         <Reveal><h2 className="font-display text-3xl font-black">Rakaza songs</h2><p className="mt-1 text-muted">Tap play. Songs from the project, made for Rakaza.</p></Reveal>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">{SONGS.map(([f, t], i) => <Reveal key={f} delay={i * 100}><Song file={f} title={t} /></Reveal>)}</div>
@@ -48,7 +67,7 @@ export function Media() {
           {MEMES.map(([id, cap], i) => (
             <Reveal key={id} delay={(i % 4) * 80}>
               <button onClick={() => setBig(id)} className="group block w-full overflow-hidden rounded-card border-2 border-line bg-card text-left transition hover:-translate-y-1 hover:rotate-1 hover:border-ink" aria-label={cap}>
-                <img src={`/memes/${id}.jpg`} alt={cap} loading="lazy" className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105" />
+                <img src={`/memes/${id}.jpg`} alt={cap} loading="lazy" className="aspect-square w-full object-cover" />
               </button>
             </Reveal>
           ))}

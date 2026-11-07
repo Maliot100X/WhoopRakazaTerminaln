@@ -51,3 +51,19 @@ Honest status. "Opened and used" means I fetched the real file and it changed wh
 | `https://rakaza-ai-terminal.vercel.app/api/public/tokens/<mint>` | token detail | **times out** (`FUNCTION_INVOCATION_TIMEOUT`), so it is not used |
 | `https://lite-api.jup.ag/price/v3` | SOL price | works with curl, no CORS header seen, so DexScreener is used instead |
 | `https://three.ws/api/mcp-studio` | 3D catalog / generation | `search_catalog` works, `forge_free` timed out |
+
+## Round 2 additions (your second list plus what the search found)
+
+| Link | Status |
+|---|---|
+| https://github.com/rlaope/oh-my-hermes | Cloned (170 MB), README and install protocol read. It is an operating layer for the Hermes agent, so not applicable to this static app. Not run. |
+| Graphify (github.com/Graphify-Labs/graphify) | Cloned. Not run (needs `pipx install graphifyy`). |
+| Awesome DESIGN.md (github.com/VoltAgent/awesome-design-md) | Cloned (84 brands). Used the format: this repo has its own `DESIGN.md`. |
+| Hallmark (github.com/Nutlope/hallmark) | Cloned and **run** (sloplint). See `docs/SKILLS-RESEARCH.md`. |
+| Huashu Design (github.com/alchaincyf/huashu-design) | Cloned, SKILL.md read. Not run. |
+| Designer Skills Pack (github.com/Owl-Listener/designer-skills) | Cloned. I counted 111 skills and 34 command files. Not run. |
+| Motion Design Skill (github.com/LottieFiles/motion-design-skill) | Cloned and **applied** (motion tokens). |
+| Blender skills (github.com/EL4CTEO/blender-skills) | Cloned (28 skills). Not run. |
+| github.com/zanwei/design-dna, github.com/cloudai-x/threejs-skills, github.com/greensock/gsap-skills | Found in a Nov 3 2026 newsletter ("5 Claude Code skills that animate your site"). Cloned. three.js skills **applied** (Clock to Timer). |
+| The X post text you pasted ("web designers have NO IDEA...") | Used as the research list. The X post itself was not opened. |
+| skills.sh, Google, X, forums | Searched through a web search tool only (it returned GitHub pages, dev.to, newsletters, review sites). X and skills.sh were not browsed directly. |

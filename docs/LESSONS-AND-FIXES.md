@@ -63,3 +63,20 @@ Read this before building anything. Each item cost real time.
 ## Security
 
 35. **A GitHub personal access token was pasted into a chat to create this repo.** It must be revoked and replaced (GitHub > Settings > Developer settings > Personal access tokens). The token was only used for `git push` and the repo-creation API call and is not stored in any file in this repo.
+
+## Round 2 (chatbot, localhost preview, video, images, lint)
+
+36. **`THREE.Clock` is deprecated in three r186.** The console printed "THREE.Clock: This module has been deprecated. Please use THREE.Timer". Found again in the cloudai-x/threejs-skills. Use `const timer = new THREE.Timer(); timer.update(); timer.getDelta(); timer.getElapsed()`.
+37. **An endless animation makes Playwright clicks time out** ("element is not stable"): the floating chat button bobs forever. In tests click it with `{ force: true }`. Keep the bob subtle and disabled for reduced motion.
+38. **React state is stale inside an async chain.** The terminal's "Run the whole setup" runs five commands in a row; `cwd` kept its old value so `npm install` said "no package.json". Keep `cwd` in a ref (`st.current.cwd`) and mirror it to state for display.
+39. **Two triggers, one command.** The helper chat can run a terminal command via a window event and also via a pending-command variable (for when the Terminal tab is not mounted yet). Dedupe: ignore the same command within 1.5 s.
+40. **Helper search quality.** Chunking whole sections gave useless answers ("What this app is" for a 70/30 question). Chunk per bullet / table row / numbered step, boost the project's own notes over the copied docs, cut answers at a sentence or line boundary, show the source.
+41. **Importing markdown as text:** `import x from './file.md?raw'` works in Vite; add `declare module '*?raw'` in `src/raw.d.ts` for TypeScript.
+42. **`generateImage` can return a 500** (OpenAI server error) for one of four parallel calls. Just retry that one call. Images come back as ~1.5 to 2 MB PNGs: convert to JPG (84%) for the site.
+43. **No ImageMagick/ffmpeg in the sandbox at first.** PNG to JPG was done with Chromium: `page.goto('file:///x.png')` then screenshot as JPEG. (`page.setContent` with a `file://` image does NOT load; `goto` does.) Do not delete the originals until you have checked the JPGs are different sizes (four identical 13,641-byte files meant they were all blank).
+44. **ffmpeg installs fine with `apt-get install -y ffmpeg`** (as root). Playwright `recordVideo` writes WebM; convert to H.264 MP4 with `-pix_fmt yuv420p -movflags +faststart` so phones play it. A GIF for the README: `fps=8,scale=640:-1` with a palette.
+45. **Recording WebGL headless works** with the SwiftShader flags but runs at a low frame rate. It is fine for a tour; it is not a benchmark.
+46. **Hallmark sloplint** is plain Node, zero dependencies: `node scripts/sloplint.mjs <dir> --genre playful --scope app`. It reads Tailwind class strings, so `bg-[#hex]` and `shadow-[...rgba]` are "colour literals". Put colours in `@theme` tokens and use the utility names. Its "card nested in card" check fires on any `bg-card` inside a bordered container; use another surface token.
+47. **Offensive third-party data.** A token feed can contain slurs. Keep the blocklist and consider a deny/allow-list approach for anything user-generated.
+48. **Do not use `pkill -f vite`/`bun run dev` in the same shell command as a publish.** The shell dies (exit 143) and the next command never runs. Run the publish as its own command.
+49. **`whop-publish status` can say `unpublished` while the new build is already serving.** Trust the `x-whop-build` response header of the live URL and a 200 on a new file.

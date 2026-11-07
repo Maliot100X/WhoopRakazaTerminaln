@@ -105,11 +105,12 @@ export function Avatar3D() {
     const resize = () => { const w = el.clientWidth, h = el.clientHeight; renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); fit() }
     const ro = new ResizeObserver(resize); ro.observe(el); resize()
 
-    const clock = new THREE.Clock()
+    const clock = new THREE.Timer()
     let raf = 0, nextBlink = 2, blinkT = -1, hx = 0, hy = 0
     const tick = () => {
       raf = requestAnimationFrame(tick)
-      const dt = clock.getDelta(), t = reduce ? 0 : clock.elapsedTime
+      clock.update()
+      const dt = clock.getDelta(), t = reduce ? 0 : clock.getElapsed()
       particles.rotation.y = t * 0.08; particles.position.y = Math.sin(t * 0.6) * 0.05
       ringMesh.rotation.z = t * 0.6; ring2.rotation.z = -t * 0.3
       ;(ringMesh.material as THREE.MeshBasicMaterial).opacity = 0.5 + Math.sin(t * 2) * 0.25
@@ -156,23 +157,23 @@ export function Avatar3D() {
   }, [])
 
   return (
-    <div className="relative overflow-hidden rounded-card border-2 border-line bg-[radial-gradient(ellipse_at_50%_30%,#3a1c9a_0%,#120828_70%)]">
+    <div className="relative overflow-hidden rounded-card border-2 border-line rk-stage">
       <div ref={host} className="h-[72vh] min-h-[460px] max-h-[760px] w-full" />
       {!ready && !failed && (
         <div className="absolute inset-0 grid place-items-center text-center">
-          <div><p className="font-mono text-sm text-muted">Summoning Rakaza… {pct}%</p><div className="mx-auto mt-3 h-1.5 w-40 overflow-hidden rounded-full bg-line"><div className="h-full bg-accent transition-all" style={{ width: `${pct}%` }} /></div></div>
+          <div><p className="text-sm text-muted">Summoning Rakaza… {pct}%</p><div className="mx-auto mt-3 h-1.5 w-40 overflow-hidden rounded-full bg-line"><div className="h-full bg-accent" style={{ width: `${pct}%` }} /></div></div>
         </div>
       )}
-      {failed && <p className="absolute inset-0 grid place-items-center p-6 text-center text-muted">Your device couldn't load the 3D avatar.</p>}
+      {failed && <p className="absolute inset-0 grid place-items-center p-6 text-center text-muted">Your device could not load the 3D avatar.</p>}
       <div className="pointer-events-none absolute inset-x-0 top-0 p-4">
-        <p className="min-h-[4.5rem] rounded-2xl border border-white/15 bg-white/10 p-4 text-sm leading-relaxed text-ink shadow-[0_20px_40px_rgba(0,0,0,.35)] backdrop-blur-md" aria-live="polite">
-          <span className="font-mono text-xs text-accent">RAKAZA</span><br />{typed}<span className="ml-0.5 inline-block w-1.5 animate-pulse bg-accent">&nbsp;</span>
+        <p className="min-h-[4.5rem] rounded-2xl bg-paper p-4 text-sm leading-relaxed text-ink" aria-live="polite">
+          <span className="text-xs font-bold text-accent">Rakaza</span><br />{typed}<span className="ml-0.5 inline-block w-1.5 animate-pulse bg-accent">&nbsp;</span>
         </p>
       </div>
       <div className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 bg-gradient-to-t from-paper/80 to-transparent p-3 pt-8">
         <button onClick={() => { wave.current = 2.4 }} className="min-h-11 rounded-full border-2 border-ink bg-accent px-4 text-sm font-bold text-accent-ink"><Hand className="mr-1.5 inline size-4" aria-hidden />Say hi</button>
-        <button onClick={() => setLine((l) => l + 1)} className="min-h-11 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-bold backdrop-blur-md"><SkipForward className="mr-1.5 inline size-4" aria-hidden />Next</button>
-        <button onClick={() => { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(lines[line % lines.length]); u.pitch = 1.3; speechSynthesis.speak(u) } catch { /* unsupported */ } }} className="min-h-11 rounded-full border border-white/25 bg-white/10 px-4 text-sm font-bold backdrop-blur-md"><Volume2 className="mr-1.5 inline size-4" aria-hidden />Voice</button>
+        <button onClick={() => setLine((l) => l + 1)} className="min-h-11 rounded-full bg-paper px-4 text-sm font-bold ring-2 ring-line"><SkipForward className="mr-1.5 inline size-4" aria-hidden />Next</button>
+        <button onClick={() => { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(lines[line % lines.length]); u.pitch = 1.3; speechSynthesis.speak(u) } catch { /* unsupported */ } }} className="min-h-11 rounded-full bg-paper px-4 text-sm font-bold ring-2 ring-line"><Volume2 className="mr-1.5 inline size-4" aria-hidden />Voice</button>
       </div>
     </div>
   )

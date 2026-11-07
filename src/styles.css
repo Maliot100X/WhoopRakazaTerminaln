@@ -1,29 +1,60 @@
+/* Hallmark · theme: Rakaza neo-brutalist playful (brand-given, by request) · genre: playful · skills: hallmark floor, lottiefiles motion-design (Playful archetype), antigravity-design-expert, three.js r186 */
+/* critique: loud on purpose, because the brand is a loud anime launchpad. Hard offset shadows and uppercase display title are the brand's own and kept; everything else follows the floor. */
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Anybody", "Geist", sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
   --font-mono: "Geist Mono", ui-monospace, monospace;
   --color-paper: #120828;
   --color-card: #1c0f40;
+  --color-night: #0a0418;
   --color-ink: #f4efff;
+  --color-lav: #e4d9ff;
   --color-muted: #b7aad6;
   --color-line: #4a3a86;
   --color-accent: #ffc933;
   --color-accent-ink: #170a36;
   --color-pink: #ff4da6;
   --color-mint: #3ff0c3;
+  --color-violet: #6a3cff;
+  --color-glow: #2a1470;
   --radius-card: 1.25rem;
+  /* motion: Playful archetype. Hover under 100 ms, press under 150 ms, cards 200 to 350 ms, entrances longer than exits. */
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emph: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --dur-hover: 90ms;
+  --dur-press: 140ms;
+  --dur-card: 320ms;
+  --dur-enter: 420ms;
+  --dur-exit: 260ms;
 }
 
 * { box-sizing: border-box; }
-html { background: var(--color-paper); color: var(--color-ink); color-scheme: dark; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-body { margin: 0; font-family: var(--font-sans); overflow-x: hidden; }
+html { background: var(--color-paper); color: var(--color-ink); color-scheme: dark; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: clip; accent-color: var(--color-accent); scrollbar-color: var(--color-line) var(--color-paper); }
+body { margin: 0; font-family: var(--font-sans); overflow-x: clip; }
+::selection { background: var(--color-pink); color: var(--color-accent-ink); }
 #app { min-height: 100%; }
 
+/* Visible focus on every interactive element, instantly. Press and hover feedback is fast. */
+:where(a, button, input, summary, [tabindex]):focus-visible { outline: 3px solid var(--color-mint); outline-offset: 3px; transition: none; }
+:where(button, a) { transition: transform var(--dur-hover) var(--ease-out), background-color var(--dur-hover) var(--ease-out), border-color var(--dur-hover) var(--ease-out), opacity var(--dur-hover) var(--ease-out); }
+:where(button:not(:disabled)):active { transform: scale(0.96); transition-duration: var(--dur-press); }
+:where(button, input):disabled { cursor: not-allowed; }
+
+.rk-galaxy { background: radial-gradient(ellipse at 50% 40%, var(--color-glow) 0%, var(--color-paper) 75%); }
+.rk-stage { background: radial-gradient(ellipse at 50% 30%, var(--color-violet) 0%, var(--color-paper) 70%); }
+.rk-rays { background: repeating-conic-gradient(from 0deg at 50% 100%, color-mix(in srgb, white 13%, transparent) 0 6deg, transparent 6deg 12deg); }
+
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-@keyframes shine { to { background-position: 200% center; } }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
-@keyframes bar { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+@keyframes pop { from { opacity: 0; transform: translateY(18px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes bar { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+.rk-rise { animation: rise var(--dur-enter) var(--ease-emph) both; }
+.rk-pop { animation: pop var(--dur-enter) var(--ease-back) both; }
+.rk-fab { animation: pop var(--dur-enter) var(--ease-back) both, bob 3.2s 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

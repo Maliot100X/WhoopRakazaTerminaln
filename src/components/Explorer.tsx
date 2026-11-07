@@ -20,6 +20,7 @@ type AgentRow = { rank: number; handle: string; name: string; verified?: boolean
 
 const OrbitView = lazy(() => import('./Orbit3D').then((m) => ({ default: m.Orbit3D })))
 const AvatarView = lazy(() => import('./Avatar3D').then((m) => ({ default: m.Avatar3D })))
+const ChatbotView = lazy(() => import('./Chatbot').then((m) => ({ default: m.Chatbot })))
 const TerminalView = lazy(() => import('./Terminal').then((m) => ({ default: m.Terminal })))
 const MediaView = lazy(() => import('./Media').then((m) => ({ default: m.Media })))
 const CommunityView = lazy(() => import('./Community').then((m) => ({ default: m.Community })))
@@ -69,7 +70,7 @@ function TokenSheet({ t: open, onClose }: { t: Token; onClose: () => void }) {
             {open.description && <p className="mt-4 text-muted">{open.description}</p>}
             <dl className="mt-5 grid grid-cols-2 gap-3 text-sm">
               {[['Market cap', sol(open.market?.marketCapSol)], ['Price', open.market?.priceSol != null ? open.market.priceSol.toExponential(2) + ' SOL' : 'n/a'], ['24h volume', sol(open.market?.volume24hSol)], ['24h trades', String(open.market?.trades24h ?? 0)], ['Curve', `${Math.round(open.curve?.progressPct ?? 0)}%${open.curve?.complete ? ' (graduated)' : ''}`], ['Launched', open.launchedAt ? new Date(open.launchedAt).toLocaleDateString() : 'n/a']].map(([k, v]) => (
-                <div key={k} className="rounded-lg border border-line bg-card p-3"><dt className="text-muted">{k}</dt><dd className="font-bold">{v}</dd></div>
+                <div key={k} className="rounded-lg bg-night p-3"><dt className="text-muted">{k}</dt><dd className="font-bold">{v}</dd></div>
               ))}
             </dl>
             <p className="mt-4 break-all font-mono text-xs text-muted">{open.mint}</p>
@@ -126,13 +127,13 @@ function Universe() {
   const [sel, setSel] = useState<Token | null>(null)
   const orbit = useMemo(() => (data?.tokens ?? []).map((t) => ({ mint: t.mint, name: t.name, symbol: t.symbol, image: abs(t.image), progress: t.curve?.progressPct ?? 0, mcap: t.market?.marketCapSol ?? null })), [data])
   return (
-    <div className="relative overflow-hidden rounded-card border-2 border-line bg-[radial-gradient(ellipse_at_50%_40%,#2a1470_0%,#120828_75%)]">
+    <div className="relative overflow-hidden rounded-card border-2 border-line rk-galaxy">
       <div className="h-[68vh] min-h-[440px] w-full">
         {data && <Suspense fallback={null}><OrbitView tokens={orbit} onSelect={(m) => setSel(data.tokens.find((t) => t.mint === m) ?? null)} /></Suspense>}
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-wrap gap-2 p-4">
-        <span className="rounded-full bg-paper/70 px-3 py-1 font-mono text-xs backdrop-blur">{data ? `${data.tokens.length} launches · ${data.network}` : 'loading…'}</span>
-        <span className="rounded-full bg-paper/70 px-3 py-1 text-xs text-muted backdrop-blur">Tap a coin. The ring shows bonding curve progress.</span>
+        <span className="rounded-full bg-paper px-3 py-1 font-mono text-xs">{data ? `${data.tokens.length} launches · ${data.network}` : 'loading…'}</span>
+        <span className="rounded-full bg-paper px-3 py-1 text-xs text-muted">Tap a coin. The ring shows bonding curve progress.</span>
       </div>
       {!data && !err && <p className="absolute inset-0 grid place-items-center text-muted">Charting the galaxy…</p>}
       {err && <div className="absolute inset-0 grid place-items-center p-6"><State err={err} loading={false} reload={reload} /></div>}
@@ -154,7 +155,7 @@ function Agents() {
               <div className="min-w-0">
                 <p className="font-bold">{a.name}{a.verified ? ' ✓' : ''} <span className="text-sm font-normal text-muted">@{a.handle}</span></p>
                 {a.bio && <p className="mt-1 line-clamp-2 text-sm text-muted">{a.bio}</p>}
-                <p className="mt-2 text-xs text-muted">{a.stats?.tokens ?? 0} tokens · {a.stats?.followers ?? 0} followers · {a.stats?.posts ?? 0} posts</p>
+                <p className="mt-2 text-xs text-muted">{a.stats?.tokens ?? 0} tokens, {a.stats?.followers ?? 0} followers, {a.stats?.posts ?? 0} posts</p>
               </div>
             </a>
           </li>
@@ -233,7 +234,7 @@ export function Explorer() {
     <div className="min-h-screen bg-paper text-ink">
       <div className="relative h-36 overflow-hidden md:h-56"><img ref={bannerRef} src="/brand/banner.jpg" alt="Rakaza AI Terminal" className="absolute inset-x-0 top-0 h-[140%] w-full object-cover will-change-transform" /></div>
       <main className="mx-auto max-w-4xl px-5 py-8">
-        <h1 className="font-display text-5xl font-black tracking-tight text-[#e4d9ff] uppercase [text-shadow:4px_4px_0_var(--color-pink)] md:text-7xl" style={{ animation: "rise .6s both" }}>Rakaza Terminal</h1>
+        <h1 className="font-display text-5xl font-black tracking-tight text-lav uppercase [text-shadow:4px_4px_0_var(--color-pink)] md:text-7xl" style={{ animation: "rise .6s both" }}>Rakaza Terminal</h1>
         <p className="mt-3 max-w-xl text-muted" style={{ animation: "rise .6s .1s both" }}>Live Solana launches in 3D, a talking avatar and the trending market, all in one tab.</p>
         <nav className="mt-6 flex gap-2 overflow-x-auto pb-1" aria-label="Sections">
           {tabs.map(({ id, label, icon: Icon }) => (
@@ -242,7 +243,7 @@ export function Explorer() {
             </button>
           ))}
         </nav>
-        <div key={tab} className="mt-8" style={{ animation: "rise .45s both" }}>
+        <div key={tab} className="mt-8 rk-rise">
           {tab === 'orbit' && mounted && <Universe />}
           {tab === 'avatar' && mounted && <Suspense fallback={<p className="py-10 text-muted">Loading 3D…</p>}><AvatarView /></Suspense>}
           {tab === 'terminal' && mounted && <Suspense fallback={null}><TerminalView /></Suspense>}
@@ -255,6 +256,7 @@ export function Explorer() {
           {tab === 'about' && <About />}
         </div>
       </main>
+      {mounted && <Suspense fallback={null}><ChatbotView onNavigate={(t) => setTab(t)} /></Suspense>}
     </div>
   )
 }

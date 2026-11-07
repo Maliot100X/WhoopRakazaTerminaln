@@ -12,5 +12,5 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
     io.observe(el)
     return () => io.disconnect()
   }, [])
-  return <div ref={ref} className={className} style={{ opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(28px) scale(.98)', transition: `opacity .7s ${delay}ms cubic-bezier(.2,.7,.2,1), transform .7s ${delay}ms cubic-bezier(.2,.7,.2,1)` }}>{children}</div>
+  return <div ref={ref} className={className} style={{ opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(24px) scale(.98)', transition: `opacity var(--dur-enter) ${delay}ms var(--ease-emph), transform var(--dur-enter) ${delay}ms var(--ease-emph)` }}>{children}</div>
 }

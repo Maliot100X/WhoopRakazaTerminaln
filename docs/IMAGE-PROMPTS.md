@@ -23,3 +23,11 @@ Edit the words and sizes in `tools/og-template.html` (title 92 px Archivo Black,
 
 ## More scenes (same recipe)
 Use the table in the original PROMPT-GUIDE (gm, never-share, devnet-first, read-the-chart, dyor, 3am, keep-100, seventy-thirty). Final prompt = character lock + style lock + one scene sentence. The 8 memes in `public/memes/` come from there.
+
+## Scenes made in round 2 (all 16:9, banner as the reference image, same character lock + style lock)
+Scene sentences (append to the locks above):
+- **universe**: floating in a starry indigo cosmos, arms open, three thin glowing orbit rings carrying small round colourful token coin badges, a large glowing gold coin with a rocket emblem in the middle.
+- **terminal**: sitting at a glowing desk typing on a laptop, a big dark terminal window floating beside her with colourful abstract code lines and a blinking mint cursor, small rocket icon. (Ask for "no readable text".)
+- **helper**: waving and holding a glowing chat bubble, several empty rounded speech bubbles with small icons (a lightbulb, a wrench, a rocket, a shield) floating around her like a helpful assistant.
+- **avatar-stage**: standing on a glowing neon circular stage with mint and pink rings, a holographic 3D wireframe avatar silhouette next to her, spotlight beams.
+Files: `public/img/scene-*.jpg` (and copies in `docs/images/`). The first attempt at avatar-stage returned a server error; a retry worked.

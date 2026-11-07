@@ -44,7 +44,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-paper text-ink">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-        <a href="/" className="flex items-center gap-3 font-display text-lg font-black tracking-wider uppercase">
+        <a href="/" className="flex items-center gap-3 font-display text-lg font-black">
           <span className="grid size-9 place-items-center rounded-lg bg-accent text-accent-ink">R</span>
           Rakaza
         </a>
@@ -58,14 +58,13 @@ function Home() {
       </header>
 
       <main>
-        <section className="relative isolate overflow-hidden bg-[#6a3cff]">
-          <div className="absolute inset-0 -z-10 opacity-30" style={{ background: 'repeating-conic-gradient(from 0deg at 50% 100%, #ffffff22 0 6deg, transparent 6deg 12deg)' }} />
+        <section className="relative isolate overflow-hidden bg-violet">
+          <div className="rk-rays absolute inset-0 -z-10 opacity-30"  />
           <div className="mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28">
-            <p className="font-mono text-xs tracking-widest uppercase text-accent">Open source · Built on Solana</p>
-            <h1 className="mt-5 font-display text-[22vw] leading-[0.85] font-black tracking-tight text-[#e4d9ff] uppercase [text-shadow:6px_6px_0_var(--color-pink)] md:text-[10rem]">
+            <h1 className="mt-5 font-display text-[22vw] leading-[0.85] font-black tracking-tight text-lav uppercase [text-shadow:6px_6px_0_var(--color-pink)] md:text-[10rem]">
               Rakaza
             </h1>
-            <p className="mt-6 font-serif text-4xl text-accent italic md:text-6xl">AI terminal for pump.fun launches</p>
+            <p className="mt-6 font-display text-3xl font-bold text-accent md:text-5xl">AI terminal for pump.fun launches</p>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
               Launch coins on Solana, talk to an AI agent with a live voice avatar, and run it all from Telegram. A 70/30 fee split, and the whole thing is open source.
             </p>
@@ -87,7 +86,7 @@ function Home() {
 
         <section id="features" className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <h2 className="max-w-2xl font-display text-4xl leading-tight font-black tracking-tight text-balance md:text-6xl">A character, not a chatbot.</h2>
-          <p className="mt-5 max-w-xl text-lg text-muted">Everything you need to launch and follow a coin, in one terminal.</p>
+          <p className="mt-5 max-w-xl text-lg text-muted">Launch a coin, watch its curve and follow what the agents do, all from one page.</p>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {features.map(({ icon: Icon, title, body }, i) => (
               <article key={title} className="rounded-card border-2 border-line bg-card p-7" style={{ boxShadow: `5px 5px 0 ${['var(--color-pink)', 'var(--color-accent)', 'var(--color-mint)'][i % 3]}` }}>
@@ -130,7 +129,7 @@ function Home() {
       <footer className="border-t border-line">
         <div className="mx-auto max-w-6xl px-6 py-10 text-sm text-muted">
           <p className="max-w-2xl">Rakaza is experimental and not financial advice. Coins can go to zero. We never ask for your seed phrase or private key.</p>
-          <p className="mt-4 font-mono text-xs">© {new Date().getFullYear()} RakazAITerminal. Built on Solana.</p>
+          <p className="mt-4 text-xs">© {new Date().getFullYear()} RakazAITerminal. Built on Solana.</p>
         </div>
       </footer>
     </div>

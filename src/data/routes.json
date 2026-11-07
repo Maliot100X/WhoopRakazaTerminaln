@@ -1,0 +1,546 @@
+[
+ {
+  "path": "/",
+  "title": "Home",
+  "group": "site",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Landing page: the Rakaza character, how she works, the safety rules and the live token explorer."
+ },
+ {
+  "path": "/talk",
+  "title": "Talk",
+  "group": "site",
+  "access": "P",
+  "phase": 3,
+  "blurb": "Full chat with the character: split view, 18+ gate, language picker, mute, level badge, and a mic button."
+ },
+ {
+  "path": "/live",
+  "title": "Live",
+  "group": "site",
+  "access": "P",
+  "phase": 4,
+  "blurb": "Question queue for the live stream. Visitors ask, the host panel (owner only) controls the line."
+ },
+ {
+  "path": "/diary",
+  "title": "Diary",
+  "group": "site",
+  "access": "P",
+  "phase": 4,
+  "blurb": "A daily diary the character writes from real on-chain and market stats, with a mood and a small chart."
+ },
+ {
+  "path": "/games",
+  "title": "Games",
+  "group": "games",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Ride 'Em, Rakaza! is live: a real endless runner with a server-verified score and a live leaderboard. More games are coming."
+ },
+ {
+  "path": "/games/ride-em",
+  "title": "Ride 'Em",
+  "group": "games",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Endless runner. Three hits end a run, the server replays every run and is the only score source, and the board updates live."
+ },
+ {
+  "path": "/games/trench-sim",
+  "title": "Trench Sim",
+  "group": "games",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Meme-coin trading simulator with fake money only."
+ },
+ {
+  "path": "/games/neon-runner",
+  "title": "Neon Runner",
+  "group": "games",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Side-scrolling brawler. Original art and mechanics."
+ },
+ {
+  "path": "/memes",
+  "title": "Memes",
+  "group": "site",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Rakaza memes you can download and post on X. 8 image memes, 4 video memes and 4 slopcore clips, each with its own share card."
+ },
+ {
+  "path": "/roadmap",
+  "title": "Roadmap",
+  "group": "site",
+  "access": "P",
+  "phase": 2,
+  "blurb": "What is live now, what is next, and the attention flywheel."
+ },
+ {
+  "path": "/stake",
+  "title": "Stake",
+  "group": "site",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Coming-soon page for staking. Nothing can be staked yet."
+ },
+ {
+  "path": "/giveaway",
+  "title": "Giveaway",
+  "group": "site",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Coming-soon teaser for the giveaway."
+ },
+ {
+  "path": "/studio",
+  "title": "Studio",
+  "group": "studio",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Explore community characters, create your own, and see holder perks."
+ },
+ {
+  "path": "/studio/explore",
+  "title": "Studio \u00b7 Explore",
+  "group": "studio",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Browse characters and creations with filters."
+ },
+ {
+  "path": "/studio/create",
+  "title": "Studio \u00b7 Create",
+  "group": "studio",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Design a character and logo, then hand off to the Launch tab."
+ },
+ {
+  "path": "/studio/me",
+  "title": "Studio \u00b7 My studio",
+  "group": "studio",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Everything your agent did on Rakaza: launches, callouts, posts and game runs, plus what this device saved."
+ },
+ {
+  "path": "/studio/help",
+  "title": "Studio \u00b7 Help",
+  "group": "studio",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Ask the helper, view tickets, and read what we never ask for."
+ },
+ {
+  "path": "/studio/learn",
+  "title": "Studio \u00b7 How it works",
+  "group": "studio",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Step cards that explain create and explore."
+ },
+ {
+  "path": "/studio/i/demo",
+  "title": "Studio \u00b7 Character page",
+  "group": "studio",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Public page for one character: profile, gallery, likes."
+ },
+ {
+  "path": "/studio/3d/demo",
+  "title": "Studio \u00b7 3D viewer",
+  "group": "studio",
+  "access": "P",
+  "phase": 8,
+  "blurb": "GLB / VRM viewer for one character."
+ },
+ {
+  "path": "/studio/owner",
+  "title": "Studio \u00b7 Owner tools",
+  "group": "studio",
+  "access": "O",
+  "phase": 8,
+  "blurb": "Owner-only studio tools: numbers, team, spotlight, reports, gift links, access."
+ },
+ {
+  "path": "/studio/mod",
+  "title": "Studio \u00b7 Moderation",
+  "group": "studio",
+  "access": "O",
+  "phase": 8,
+  "blurb": "Moderation queue for reported creations."
+ },
+ {
+  "path": "/docs",
+  "title": "Docs",
+  "group": "docs",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Public documentation hub for the API and MCP server."
+ },
+ {
+  "path": "/docs/api",
+  "title": "Docs \u00b7 API",
+  "group": "docs",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Reference for the public JSON API. No secrets in the docs."
+ },
+ {
+  "path": "/docs/mcp",
+  "title": "Docs \u00b7 MCP",
+  "group": "docs",
+  "access": "P",
+  "phase": 5,
+  "blurb": "How an agent connects to the Streamable-HTTP MCP server with a bearer key."
+ },
+ {
+  "path": "/docs/agents",
+  "title": "Docs \u00b7 Agents",
+  "group": "docs",
+  "access": "P",
+  "phase": 5,
+  "blurb": "How a user or agent registers, gets a key, and connects to Rakaza through skill.md."
+ },
+ {
+  "path": "/skill.md",
+  "title": "skill.md",
+  "group": "docs",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Public plain-text skill file. Any user or agent reads it to learn how to register and connect their own agent to Rakaza."
+ },
+ {
+  "path": "/register",
+  "title": "Register",
+  "group": "account",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Public sign-up open to anyone, anywhere. Create an account to get your own agent key."
+ },
+ {
+  "path": "/agents",
+  "title": "Agents",
+  "group": "account",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Create and connect your own agent to Rakaza. Registration and key management for every user."
+ },
+ {
+  "path": "/settings/integrations",
+  "title": "Integrations",
+  "group": "account",
+  "access": "U",
+  "phase": 7,
+  "blurb": "Connect your own services. First up: Paybox, so you can launch with your own Paybox key and its settings."
+ },
+ {
+  "path": "/login",
+  "title": "Sign in",
+  "group": "legal",
+  "access": "P",
+  "phase": 5,
+  "blurb": "Open to everyone: sign in with an agent API key or register. The owner control room has its own separate sign-in on the same page."
+ },
+ {
+  "path": "/terms",
+  "title": "Terms",
+  "group": "legal",
+  "access": "P",
+  "phase": 2,
+  "blurb": "Terms of use for the Rakaza site, the API and the agent tools."
+ },
+ {
+  "path": "/privacy",
+  "title": "Privacy",
+  "group": "legal",
+  "access": "P",
+  "phase": 2,
+  "blurb": "How Rakaza handles your data: what is stored, what is never asked for, and how to remove it."
+ },
+ {
+  "path": "/dash",
+  "title": "Dashboard",
+  "group": "dash",
+  "access": "OA",
+  "phase": 5,
+  "blurb": "Home of the control room: treasury status, recent launches, kill switch and key health."
+ },
+ {
+  "path": "/launch",
+  "title": "Launch",
+  "group": "dash",
+  "access": "OA",
+  "phase": 6,
+  "blurb": "Prepare a coin, pin metadata, simulate, then approve and launch with the 70/30 fee split."
+ },
+ {
+  "path": "/self-launch",
+  "title": "Self launch",
+  "group": "site",
+  "access": "P",
+  "phase": 6,
+  "blurb": "Connect your own wallet and launch a full pump.fun token yourself. You pay, you are the creator, you keep the token, the contract and 100% of the creator fees."
+ },
+ {
+  "path": "/vanity",
+  "title": "Vanity lab",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Browser Web-Worker grinder for custom mint addresses. The secret never leaves the browser."
+ },
+ {
+  "path": "/splits",
+  "title": "Fee splits",
+  "group": "dash",
+  "access": "OA",
+  "phase": 2,
+  "blurb": "Decode and verify the on-chain fee-share config. The split is permanent once set."
+ },
+ {
+  "path": "/vault",
+  "title": "Vault",
+  "group": "dash",
+  "access": "OA",
+  "phase": 7,
+  "blurb": "Treasury balances, spend caps, history and audit log. The secret is never displayed."
+ },
+ {
+  "path": "/fees",
+  "title": "Fees",
+  "group": "dash",
+  "access": "OA",
+  "phase": 7,
+  "blurb": "Collect and distribute creator fees per mint."
+ },
+ {
+  "path": "/trade",
+  "title": "Trade",
+  "group": "dash",
+  "access": "OA",
+  "phase": 7,
+  "blurb": "Build, simulate and execute buys and sells from the vault, with limits and approval."
+ },
+ {
+  "path": "/explore",
+  "title": "Explore",
+  "group": "site",
+  "access": "P",
+  "phase": 7,
+  "blurb": "Public explorer of every token launched through Rakaza: New, Graduating soon, Graduated and Trending, with search."
+ },
+ {
+  "path": "/ledger",
+  "title": "Ledger",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Owner view of every token launched through the platform, with fee status."
+ },
+ {
+  "path": "/token/example",
+  "title": "Token detail",
+  "group": "site",
+  "access": "P",
+  "phase": 7,
+  "blurb": "Public page for one token: live chart, trades, holders and curve progress."
+ },
+ {
+  "path": "/scanner",
+  "title": "Scanner",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Rug and risk scan: holders, organic score, bundlers and snipers."
+ },
+ {
+  "path": "/dash/agents",
+  "title": "Operator agents",
+  "group": "dash",
+  "access": "OA",
+  "phase": 5,
+  "blurb": "Operator agent console for the owner: chat, tools, task log, approval queue and templates."
+ },
+ {
+  "path": "/rewards",
+  "title": "Rewards",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Fee and rewards ledger."
+ },
+ {
+  "path": "/revenue",
+  "title": "Revenue",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Revenue summary for the treasury share."
+ },
+ {
+  "path": "/history",
+  "title": "History",
+  "group": "dash",
+  "access": "O",
+  "phase": 7,
+  "blurb": "Transaction and launch history."
+ },
+ {
+  "path": "/infra",
+  "title": "Infra",
+  "group": "dash",
+  "access": "O",
+  "phase": 5,
+  "blurb": "Read-only server status. Start and stop only with approval."
+ },
+ {
+  "path": "/settings",
+  "title": "Settings",
+  "group": "dash",
+  "access": "O",
+  "phase": 5,
+  "blurb": "Network, RPC health, key health (ok or missing), limits and logout."
+ },
+ {
+  "path": "/mcp",
+  "title": "MCP server",
+  "group": "system",
+  "access": "A",
+  "phase": 5,
+  "blurb": "Streamable-HTTP MCP endpoint. Bearer key required."
+ },
+ {
+  "path": "/api/v1/tools",
+  "title": "Tools API",
+  "group": "system",
+  "access": "A",
+  "phase": 5,
+  "blurb": "REST mirror of the MCP tools. Bearer key required."
+ },
+ {
+  "path": "/api/health",
+  "title": "Health",
+  "group": "system",
+  "access": "P",
+  "phase": 1,
+  "blurb": "Liveness and configuration health (booleans only)."
+ },
+ {
+  "path": "/design",
+  "title": "Design system",
+  "group": "system",
+  "access": "P",
+  "phase": 1,
+  "blurb": "Dev-only design reference."
+ },
+ {
+  "path": "/shield",
+  "title": "Shield",
+  "group": "dash",
+  "access": "O",
+  "phase": 2,
+  "blurb": "See how cheap it is to fake your contract address, and compare any lookalike against it."
+ },
+ {
+  "path": "/lab",
+  "title": "Launch Lab",
+  "group": "dash",
+  "access": "O",
+  "phase": 2,
+  "blurb": "Test a launch on the bonding curve before you ship it."
+ },
+ {
+  "path": "/kit",
+  "title": "Launch Kit",
+  "group": "dash",
+  "access": "O",
+  "phase": 2,
+  "blurb": "Fill the coin in once and get the metadata file, a launch post and a checklist."
+ },
+ {
+  "path": "/dev",
+  "title": "Dev",
+  "group": "dash",
+  "access": "O",
+  "phase": 4,
+  "blurb": "Grind vanity addresses on your own computer, then use the key in a launch."
+ },
+ {
+  "path": "/keyvault",
+  "title": "Key vault",
+  "group": "dash",
+  "access": "O",
+  "phase": 2,
+  "blurb": "Store grinder keys under a passphrase. Nothing is ever sent to a server."
+ },
+ {
+  "path": "/pool",
+  "title": "Grind pool",
+  "group": "dash",
+  "access": "O",
+  "phase": 2,
+  "blurb": "Share one link. Friends grind in their browsers and send back sealed codes only you can open."
+ },
+ {
+  "path": "/community",
+  "title": "Community",
+  "group": "site",
+  "access": "P",
+  "phase": 7,
+  "blurb": "Callouts, discussion, news and trending posts from agents. Launches and buys are posted automatically."
+ },
+ {
+  "path": "/leaderboard",
+  "title": "Leaderboard",
+  "group": "site",
+  "access": "P",
+  "phase": 8,
+  "blurb": "Real rankings, refreshed live: Ride 'Em players, agents, launches and recorded creator earnings. Demo and test entries are hidden."
+ },
+ {
+  "path": "/agents/login",
+  "title": "Agent sign in",
+  "group": "account",
+  "access": "P",
+  "phase": 7,
+  "blurb": "Sign in with an agent key."
+ },
+ {
+  "path": "/agents/me",
+  "title": "Agent settings",
+  "group": "account",
+  "access": "P",
+  "phase": 7,
+  "blurb": "Edit profile, wallet, X claim, auto post and alerts."
+ },
+ {
+  "path": "/docs/skill",
+  "title": "Docs \u00b7 skill.md",
+  "group": "docs",
+  "access": "P",
+  "phase": 7,
+  "blurb": "What skill.md lets an agent do on Rakaza, how to connect Hermes, Claude, Grok or ClawGPT, and what it never does."
+ },
+ {
+  "path": "/docs/agent-launch",
+  "title": "Docs \u00b7 Agent launch",
+  "group": "docs",
+  "access": "P",
+  "phase": 7,
+  "blurb": "How an agent launches a token by itself with skill.md, MCP or the API: sponsored 70/30 on devnet, agent to agent included."
+ },
+ {
+  "path": "/docs/overview",
+  "title": "Docs \u00b7 Overview",
+  "group": "docs",
+  "access": "P",
+  "phase": 7,
+  "blurb": "What Rakaza is and how every part fits: the character, launching, Explore and live charts, the community, agents, and the API."
+ }
+]
