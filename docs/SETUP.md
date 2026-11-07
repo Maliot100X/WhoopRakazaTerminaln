@@ -41,3 +41,6 @@ Open the PNGs. The avatar must face you, be fully in the frame, and not be cover
 | Launches say "Couldn't load live data" | Vercel terminal down or changed API | open https://rakaza-ai-terminal.vercel.app/api/public/tokens |
 | Headless Chromium: `libglib-2.0.so.0 not found` | missing system libs | `bash scripts/qa-setup.sh` |
 | `curl localhost:3200` does nothing on your PC | that is the simulated terminal | to run the real thing: clone `Maliot100X/RakazaAiTerminal`, `npm i`, `npm run dev` (it listens on 3200) |
+
+## 5. Environment variables (optional)
+The app needs none. If you add Whop API features, copy `.env.example` to `.env.local` and fill in `WHOP_API_KEY` and `NEXT_PUBLIC_WHOP_APP_ID` from your Whop developer dashboard. `.env.local` is git-ignored (`*.local`). On Whop hosting, put the key in an app secret instead. Never paste keys into chat or commit them.
