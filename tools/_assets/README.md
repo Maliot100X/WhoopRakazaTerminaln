@@ -1,0 +1,3 @@
+- `bg.png`: the generated share-card artwork (no text). Prompt is in docs/IMAGE-PROMPTS.md.
+- `ab.ttf`: Archivo Black (SIL Open Font License). https://github.com/google/fonts/tree/main/ofl/archivoblack
+- `gm.ttf`: Space Mono Bold (SIL Open Font License). https://github.com/google/fonts/tree/main/ofl/spacemono

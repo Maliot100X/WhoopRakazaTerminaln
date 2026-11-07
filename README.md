@@ -1,196 +1,39 @@
-Welcome to your new TanStack Start app!
+# WhoopRakazaTerminaln
 
-# Getting Started
+A Whop-hosted, mobile-first 3D front end for the **Rakaza AI Terminal** (Solana pump.fun launchpad with an AI character).
+Live: https://rakazaiterminal.whop.site/terminal  ·  Original project: https://github.com/Maliot100X/RakazaAiTerminal  ·  Full terminal: https://rakaza-ai-terminal.vercel.app
 
-To run this application:
+![share card](tools/_assets/bg.png)
 
+## What is in it
+| Tab | What you get |
+|---|---|
+| **Universe** | Live launches as coins orbiting a gold "R" coin in 3D. Tap one for details. Ring = bonding-curve progress, green glow = graduated. |
+| **Rakaza 3D** | A live 3D VRM avatar that faces you, blinks, waves, talks (typed bubble + mouth movement + optional voice) and quotes the live SOL price. |
+| **Terminal** | Try-it shell: `git clone`, `npm install`, `npm run dev`, `curl localhost:3200/api/health`, `rakaza tokens`, `launch --name ... --symbol ...` (dry run), `theme`. **Install/dev are simulated; data commands are real.** |
+| **Video** | 15 s promo, two songs with equalizer, meme wall. |
+| **Market** | Live SOL price and trending Solana tokens (filtered for offensive names). |
+| **Launches / Agents / Community / Leaderboard / About** | Live data from the Rakaza public API. |
+
+It is read-only: no wallet, no signing, no keys, no server code.
+
+## One-command setup
 ```bash
-bun install
-bun --bun run dev
+curl -fsSL https://raw.githubusercontent.com/Maliot100X/WhoopRakazaTerminaln/main/scripts/setup.sh | bash
 ```
+Then `npm run dev` and open http://localhost:3000/terminal. Details: [docs/SETUP.md](docs/SETUP.md).
 
-# Building For Production
+## Read these (in this order if you are about to build or fix something)
+1. [docs/LESSONS-AND-FIXES.md](docs/LESSONS-AND-FIXES.md): every mistake and its fix, so you skip them
+2. [docs/AGENT-BUILD.md](docs/AGENT-BUILD.md): the full agent prompt, including a one-click prompt for the Whop AI
+3. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): files, stack, design tokens
+4. [docs/LINKS-AND-SOURCES.md](docs/LINKS-AND-SOURCES.md): every link given, and honestly which were opened, used or skipped
+5. [docs/IMAGE-PROMPTS.md](docs/IMAGE-PROMPTS.md): consistent image prompts and the share-card recipe
+6. [docs/DEPLOY-TO-WHOP.md](docs/DEPLOY-TO-WHOP.md): publishing and checking the share card
+7. [docs/ROADMAP.md](docs/ROADMAP.md): what is not done
 
-To build this application for production:
+## Honest limits
+The full Rakaza terminal cannot run on Whop hosting (it needs Solana signing, a database, Telegram, voice and keys). This project shows its live public data in 3D and links out for everything else. The three.ws generation endpoint and several listed skills were not used; see the links file.
 
-```bash
-bun --bun run build
-```
-
-## Styling
-
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
-
-
-## Deploy to Cloudflare Workers
-
-This project uses the Cloudflare Vite plugin (configured in `vite.config.ts`) and `wrangler.jsonc`:
-
-1. Install Wrangler: `npm install -g wrangler`
-2. Authenticate: `wrangler login`
-3. Deploy: `npx wrangler deploy`
-
-For production env vars, run `wrangler secret put MY_VAR` for each secret listed in `.env.example`. Public (non-secret) vars go in `wrangler.jsonc` under `vars`.
-
-KV, D1, R2, and Durable Object bindings are configured in `wrangler.jsonc` — see https://developers.cloudflare.com/workers/wrangler/configuration/.
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+## Credits and licences
+Avatar: VRoid Project AvatarSample_B (commercial use allowed, no credit needed). Brand images, promo video, songs and memes: from Maliot100X/RakazaAiTerminal. Skill files in `docs/reference/` are copies kept for reference under their own licences (MIT / Apache-2.0): agentic-awesome-skills, three.ws, antigravity_global_skills. Fonts in `tools/_assets/`: SIL Open Font License.
